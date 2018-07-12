@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block scripts %}
+<script src="{{ url_for("static", filename="calendar.js") }}"></script>
+{% endblock %}
+{% from "security/_macros.html" import render_field_with_errors, render_field %}
+
+
+{% block content %}
+    {% include "security/_messages.html" %}
+    <div  ng-app="ClockApp" ng-controller="HistoryController" class="container">
+        <h1>History</h1>
+
+        <div class="row">
+            <form class="form-group" method="POST" ng-submit="submit()">
+                <div layout="column" flex-order="1" flex-order-gt-sm="1">
+                    <div class="col-xs-4">
+                        <label>Start Date:</label>
+                    <input class="form-control" id="startDate" name="startDate" type="date" ng-model="startDate" >
+                    {{ form.hidden_tag() }}
+                    </div>
+                </div>
+                <div layout="column" flex-order="0" flex-order-gt-sm="2">
+                    <div class="col-xs-4">
+                        <label>End Date:</label>
+                    <input class="form-control" id="endDate" name="endDate" type="date" ng-model="endDate">
+                    {{ form.hidden_tag() }}
+                    </div>
+                </div>
+                <div layout="column">
+                    <div class="col-xs-2" style="padding-top: 22px;">
+                    <input class="btn btn-primary" type="submit"/>
+                    </div>
+                </div>
+            </form>
+            </div>
+            <div class="row">
+                <div class="col-xs-8" ng-model="worked_hours">
+                    <hr />
+                    <h4 class="text-right">Total Hours: </h4>
+                    <h4 class="text-right">//worked_hours//</h4>
+                </div>
+            </div>
+
+        <div class="container">
+            <div class="row">
+                <div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">//alert.msg//</div>
+            </div>
+            <h3>Clock Entries</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="col-xs-5">Timestamp</th>
+                        <th class="col-xs-3">Clock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="entry in log_entries">
+                        <td>//entry.timestamp//</td>
+                        <td>//entry.clock_type//</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block scripts %}
+<script src="{{ url_for('static', filename="timesheet.js") }}"></script>
+{% endblock %}
+{% from "security/_macros.html" import render_field_with_errors, render_field %}
+
+{% block content %}
+{% include "security/_messages.html" %}
+<div ng-app="ClockApp" class="container">
+    <div ng-controller="ClockController">
+        <h1>Timesheet for {{ current_user.first_name.title() }} {{current_user.last_name.title()}}</h1>
+        <hr />
+        <div class="container">
+            <form role="form" name="clock" type="button" ng-submit="clickClock()">
+                <button class="btn btn-primary btn-lg" type="submit"  name="clock-in" value="//clock_type.label//">//clock_type.label | title//</button>
+            </form>
+        </div>
+        <div class="container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Clock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in clock_data">
+                        <td>//data.timestamp | title//</td>
+                        <td>//data.clock_type | title//</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

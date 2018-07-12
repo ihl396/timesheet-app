@@ -1,0 +1,6 @@
+*.pyc
+index.yaml
+config.py
+lib
+venv
+.envrc
